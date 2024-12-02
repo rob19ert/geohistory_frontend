@@ -1,0 +1,125 @@
+/* Общие стили для контейнера */
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+/* Заголовок для списка первооткрывателей */
+.header {
+    background-color: #607848;
+    width: 100%;
+    color: white;
+    padding: 20px 0;
+}
+
+.header-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    color: white;
+    font-size: 40px;
+    margin: 0;
+}
+
+/* Блок для поиска */
+.input-field {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Фон для страницы */
+body {
+    background-image: url(https://exploration.marinersmuseum.org/wp-content/themes/agesofex/images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Стиль для карточки первооткрывателя */
+.card {
+    border: none;
+    background-color: #f7f2e7;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Изображение в карточке */
+.cardImage {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Стили для текста в карточке */
+.card-body {
+    padding: 15px;
+    color: #333;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.textStyle {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.aboba {
+    margin-bottom: 20px;
+}
+
+/* Кнопка в карточке */
+.cardButton {
+    background-color: #607848;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cardButton:hover {
+    background-color: #4a6d3b;
+}
+
+/* Стиль для состояния загрузки */
+.containerLoading {
+    opacity: 0.5;
+}
+
+.loadingBg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Стиль для сообщения "Пусто" */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}

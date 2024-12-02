@@ -1,0 +1,35 @@
+.container {
+  margin-top: 20px;
+  text-align: center;
+  background-color: #F7F2E7;
+}
+
+.font-60 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.font-10 {
+  font-size: 1rem;
+  margin: 10px 0;
+  text-align: justify; /* Выровнять текст по ширине */
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px; /* Немного закруглить углы */
+  width: auto;
+    height: 340px;
+    z-index: 0;
+}
+
+.album_page_loader_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  
+}
