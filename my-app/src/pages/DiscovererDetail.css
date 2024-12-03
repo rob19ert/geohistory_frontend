@@ -1,35 +1,58 @@
-.container {
-  margin-top: 20px;
-  text-align: center;
-  background-color: #F7F2E7;
-}
-
-.font-60 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.font-10 {
-  font-size: 1rem;
-  margin: 10px 0;
-  text-align: justify; /* Выровнять текст по ширине */
-}
-
-.image {
-  max-width: 100%;
-  height: auto;
-  margin: 20px 0;
-  border-radius: 10px; /* Немного закруглить углы */
-  width: auto;
-    height: 340px;
-    z-index: 0;
-}
-
-.album_page_loader_block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
+.container2 {
+    text-align: center;
+    background-color: #F0E6D6; /* Светлый фон */
+    background-image: url(https://exploration.marinersmuseum.org/wp-content/themes/agesofex/images/background.jpg);
+    background-size: cover;
+    background-attachment: fixed; /* Фиксированное фоновое изображение */
+    padding: 40px;
+    min-height: 100vh;
+  }
   
-}
+  .penis {
+    background-color: rgba(255, 255, 255, 0.9); /* Легкий оттенок */
+    margin: 20px auto;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 80%; /* Ограничение ширины для центрирования */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .font-60 {
+    font-size: 2.8rem; /* Заголовок для имени */
+    font-weight: bold;
+    font-family: "Alegreya", serif;
+    color: #2D5D34; /* Темно-зеленый для выделения */
+    margin-bottom: 20px;
+  }
+  
+  .font-10 {
+    font-size: 1rem; /* Основной текст */
+    color: #333333; /* Нейтральный цвет текста */
+    line-height: 1.8;
+    font-family: "Alegreya", serif;
+    text-align: justify;
+    margin-bottom: 15px;
+  }
+  
+  .image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .breadcrumbs {
+    text-align: left;
+    margin-bottom: 20px;
+    font-family: "Alegreya", serif;
+    color: #333;
+  }
+  
+  .album_page_loader_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
+  

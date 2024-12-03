@@ -33,7 +33,7 @@ const DiscovererListPage: FC = () => {
   }, []);
 
   return (
-    <div className={`container ${loading && 'containerLoading'}`}>
+    <div className={`content ${loading && 'containerLoading'}`}>
       <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.SERVICES }]} />
       <InputField
         value={searchValue}
@@ -54,7 +54,7 @@ const DiscovererListPage: FC = () => {
         ) : (
           <Row xs={1} md={2} lg={4} className="g-4" style={{ marginInline: 'auto' }}>
             {discoverers.map((item) => (
-              <Col key={item.id} style={{ padding: '0px' }}>
+              <Col key={item.id} style={{ padding: '10px' }}>
                 <DiscovererCard {...item} />
               </Col>
             ))}

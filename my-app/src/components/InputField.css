@@ -9,3 +9,8 @@
     border-radius: 4px;
     outline: none;
 }
+.container {
+    display: grid;
+    place-items: center; /* Центрирует и по вертикали, и по горизонтали */
+    height: 100vh; /* Занимает всю высоту экрана для демонстрации */
+}

@@ -17,7 +17,8 @@ export const DiscovererCard: FC<Props> = ({ id, name, years_of_life, image_url, 
 
     if (!id) {return null}
     return (
-        <Card className="card">
+        <Card className="card" style={{padding: '0', margin: '0'}}>
+            <p className='textName'>ИССЛЕДОВАТЕЛЬ</p>
         <Card.Img className="cardImage" variant="top" src={image_url || defaul}  />
         <Card.Body className="card-body">            
             <div className="titleStyle">

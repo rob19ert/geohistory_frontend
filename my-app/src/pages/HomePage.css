@@ -1,8 +1,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    padding: 20px 40px;
+    /* padding: 20px 40px; */
     min-width: 800px;
+    height: 100vh;
+    /* background-color: #2D3549; */
 }
 .containerLoading {
     filter: blur(8px);

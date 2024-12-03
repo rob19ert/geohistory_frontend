@@ -9,7 +9,7 @@ import imgCarouselThree from '../components/ImageThree.jpg'
 
 export const HomePage: FC = () => {
     return (
-        <Container style={{ display: 'flex', alignItems: 'center', marginTop: '80px'}}>
+        <Container style={{ display: 'flex', alignItems: 'center', marginTop: '0px'}}>
       <Row>
         <Col md={6}>
           {/* <p className="font-40" id='font-40-home'>
@@ -21,14 +21,14 @@ export const HomePage: FC = () => {
         </Col>
       </Row>
 
-      <Carousel style={{width: '1200px', height: '500px'}}>
+      <Carousel style={{width: '100%', height: '100%'}}>
         <Carousel.Item interval={1500}>
             <img className="d-block w-100 mx-auto" src={imgCarouselOne} alt="Image One" />
             <Carousel.Caption>
             <Link to={ROUTES.SERVICES}>
-            <Button variant="primary">Просмотреть первооткрывателей</Button>
+            {/* <Button variant="primary">Просмотреть первооткрывателей</Button> */}
           </Link>
-                <h3> Изучай мир! Знай историю!</h3>
+                {/* <h3> Изучай мир! Знай историю!</h3> */}
             </Carousel.Caption>
         </Carousel.Item>
 
@@ -36,9 +36,9 @@ export const HomePage: FC = () => {
             <img className="d-block w-100 mx-auto" src={imgCarouselTwo} alt="Image Two" />
             <Carousel.Caption>
             <Link to={ROUTES.SERVICES}>
-            <Button variant="primary">Просмотреть первооткрывателей</Button>
+            {/* <Button variant="primary">Просмотреть первооткрывателей</Button> */}
           </Link>
-                <h3> Более 20 первооткрывателей!</h3>
+                {/* <h3> Более 20 первооткрывателей!</h3> */}
             </Carousel.Caption>
         </Carousel.Item>
 
@@ -46,9 +46,9 @@ export const HomePage: FC = () => {
             <img className="d-block w-100 mx-auto" src={imgCarouselThree} alt="Image Three" />
             <Carousel.Caption>
             <Link to={ROUTES.SERVICES}>
-            <Button variant="primary">Просмотреть первооткрывателей</Button>
+            {/* <Button variant="primary">Просмотреть первооткрывателей</Button> */}
           </Link>
-                <h3> Будь любознательным! </h3>
+                {/* <h3> Будь любознательным! </h3> */}
             </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

@@ -1,90 +1,87 @@
-/* Общие стили для контейнера */
-.container {
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 1200px;
-}
-
-/* Заголовок для списка первооткрывателей */
-.header {
-    background-color: #607848;
-    width: 100%;
-    color: white;
-    padding: 20px 0;
-}
-
-.header-wrapper {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header h1 {
-    color: white;
-    font-size: 40px;
+/* Объединенный стиль для discovererCard.css и discovererList.css */
+.card * {
+    --bs-card-spacer-x: 0; /* Убираем горизонтальные отступы */
+    --bs-card-spacer-y: 0; /* Убираем вертикальные отступы */
     margin: 0;
+    padding: 0;
+    line-height: 1;
+    text-align: center
+    /* background-color: #2D3549; */
 }
 
-/* Блок для поиска */
-.input-field {
-    margin-bottom: 20px;
+.content {
+    
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    padding: 20px 40px;
+    min-width: 800px;
+    background-color: #2D3549;
+    
 }
 
-/* Фон для страницы */
-body {
-    background-image: url(https://exploration.marinersmuseum.org/wp-content/themes/agesofex/images/background.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-
-/* Стиль для карточки первооткрывателя */
+/* Общие стили для карточки */
 .card {
-    border: none;
-    background-color: #f7f2e7;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 240px;
+    height: 450px;
+    background-color: #739263; /* Цвет фона */
+    border-radius: 15px; /* Одинаковое скругление углов */
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff; /* Цвет текста */
+    transition: transform 0.3s, box-shadow 0.3s; /* Общая анимация */
+    border: 2px solid #004080; /* Общая рамка */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    transition: transform 0.2s ease-in-out;
+    margin: 10px;
+    padding: 10px;
+    
 }
 
-.card:hover {
-    transform: scale(1.05);
-}
 
-/* Изображение в карточке */
+
+/* Стили для изображений */
 .cardImage {
     width: 100%;
-    height: 250px;
+    height: 200px; /* Установленная высота изображения */
     object-fit: cover;
+    display: block;
+    margin: 0; /* Убираем внешний отступ */
+    padding: 0; /* Убираем внутренний отступ */
+    border-bottom: 2px solid #ffffff; /* Белая линия под изображением */
 }
-
-/* Стили для текста в карточке */
-.card-body {
-    padding: 15px;
-    color: #333;
+.cardTitle {
+    width:238px;
 }
-
-.card-title {
+/* Стили для заголовка и текста */
+.card-header, .titleStyle {
+    white-space: nowrap; 
+    background-color: #F7F1D2;
+    height: 40px;
+    width: 238px;
+    text-align: center;
+    color: #000000;
     font-size: 18px;
+    font-family: "Alegreya", serif;
     font-weight: bold;
+    box-sizing: border-box; 
+    margin: 0; /* Убираем внешний отступ */
+    padding: 0; /* Убираем внутренний отступ */
 }
 
-.textStyle {
+.card, .textName {
+    background-color: #739263;
+    font-family: "Alegreya", serif;
+    margin: 0; /* Убираем внешний отступ */
+    padding: 0; /* Убираем внутренний отступ */
+}
+.textStyle, .card-body {
+     padding: 10px; 
+    background-color: #739263;
+    font-weight: bold;
     font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.aboba {
-    margin-bottom: 20px;
+    color: #ffffff;
 }
 
 /* Кнопка в карточке */
@@ -100,26 +97,7 @@ body {
 
 .cardButton:hover {
     background-color: #4a6d3b;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Стиль для состояния загрузки */
-.containerLoading {
-    opacity: 0.5;
-}
-
-.loadingBg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-/* Стиль для сообщения "Пусто" */
-h1 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-}

@@ -32,7 +32,8 @@ export const DiscovererDetailPage: FC = () => {
         ]}
       />
       {pageData ? ( // проверка на наличие данных, иначе загрузка
-        <div className="container">
+        <div className="container2">
+            <div className="penis">
         <Row className="justify-content-center">
           <Col md={12} className="text-center">
             <p className="font-60">{pageData.name}</p> {/* Имя сверху */}
@@ -44,17 +45,18 @@ export const DiscovererDetailPage: FC = () => {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col md={6} className="text-center">
+          <Col md={12} className="text-center">
             <p className="font-10">Годы жизни: {pageData.years_of_life}</p>
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col md={10}>
+          <Col md={12}>
             {pageData.long_description?.split("\n").map((paragraph, index) => (
-              <p key={index} className="font-10">{paragraph}</p> 
+              <p key={index} className="font-10">Открытие: {paragraph}</p> 
             ))}
           </Col>
         </Row>
+        </div>
       </div>
       
       ) : (
