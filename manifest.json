@@ -1,0 +1,49 @@
+{
+    "name": "Discoverers",
+    "short_name": "Discoverers",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#00001a",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        },
+        {
+            "src": "/logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/web-app-manifest-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/web-app-manifest-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/desktop.png",
+            "type": "image/png",
+            "sizes": "1280x636",
+            "form_factor": "wide"
+        },
+        {
+            "src": "/mobile.png",
+            "type": "image/png",
+            "sizes": "591x1280",
+            "form_factor": "narrow"
+        }
+    ]
+}
