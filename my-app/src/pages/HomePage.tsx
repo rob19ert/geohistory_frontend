@@ -2,10 +2,11 @@ import './HomePage.css'
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../Routes";
-import { Button, Col, Container, Row, Carousel } from "react-bootstrap"
+import {  Col, Container, Row, Carousel } from "react-bootstrap"
 import imgCarouselOne from '../components/ImageOne.jpg'
 import imgCarouselTwo from '../components/ImageTwo.jpg'
 import imgCarouselThree from '../components/ImageThree.jpg'
+
 
 export const HomePage: FC = () => {
     return (

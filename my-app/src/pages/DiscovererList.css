@@ -101,3 +101,51 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Фиксированное расстояние между карточками */
+    justify-content: center;
+  }
+  
+  .custom-row .col {
+    flex: 1 1 calc(25% - 16px); /* 4 карточки в строке */
+    max-width: calc(100% - 16px);
+  }
+  
+  /* Для планшетов (макс. 768px) - 2 карточки в ряд */
+  @media (max-width: 768px) {
+    .custom-row .col {
+      flex: 1 1 calc(50% - 16px);
+      max-width: calc(50% - 16px);
+    }
+  }
+  
+  /* Для мобильных устройств (макс. 480px) - карточки в колонку */
+  @media (max-width: 480px) {
+    .custom-row {
+      flex-direction: column; /* Размещаем карточки вертикально */
+    }
+    .custom-row .col {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  
+    .discoverer-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center; /* Выравниваем текст */
+    }
+  
+    .discoverer-card img {
+      width: 100%; /* Картинка на всю ширину */
+      max-width: 300px; /* Ограничение для больших экранов */
+      height: auto;
+    }
+  
+    .discoverer-card .description {
+      margin-top: 10px; /* Отступ сверху */
+    }
+  }
+  

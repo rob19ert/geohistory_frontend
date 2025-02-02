@@ -5,15 +5,15 @@ export interface Discoverer {
     image_url: string;
     long_description: string;
   }
-export const getDiscoverer = async (name = ""): Promise<Discoverer[]> => {
-  return fetch(`/discoverers/?discovererName=${name}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Ошибка сети');
-      }
-      return response.json();
-    });
-};
+  
+  export const getDiscoverer = async (name = ""): Promise<Discoverer[]> => {
+    const response = await fetch(`/discoverers/?discovererName=${name}`);
+    if (!response.ok) {
+      throw new Error('Ошибка сети');
+    }
+    const data = await response.json();
+    return data.discoverers; // Возвращаем только массив discoverers
+  };
 
   
   
