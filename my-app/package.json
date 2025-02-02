@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "tauri": "tauri",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -11,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@tauri-apps/api": "^2.2.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "gh-pages": "^6.3.0",
