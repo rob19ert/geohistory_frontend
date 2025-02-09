@@ -1,10 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import filterReducer from './slices/dataSlices';
+//import filterReducer from './slices/dataSlices';
+import discoverersReducer from './slices/dataSlices';
+import userReducer from './slices/userSlice'; 
+import discoveryReducer from './slices/discoveryDraftSlice';
+import discoveriesSliceReducer from './slices/discovererSlice'
 
 // Создание Redux store с фильтром
 const store = configureStore({
   reducer: {
-    filter: filterReducer,
+    discoverers: discoverersReducer,
+    user: userReducer,    
+    discovery: discoveryReducer,
+    discoveries: discoveriesSliceReducer,
   },
 });
 

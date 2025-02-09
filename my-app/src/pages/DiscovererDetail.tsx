@@ -16,11 +16,11 @@ export const DiscovererDetailPage: FC = () => {
     if (!id) return;
     getDiscovererId(id)
     .then((response) => setPageData(response))
-    .catch(() =>
-        setPageData (
-            DISCOVERER_MOCK.find((discoverer) => String(discoverer.id) == id)
-        )
-    );
+    //.catch(() =>
+      //  setPageData (
+        //    DISCOVERER_MOCK.find((discoverer) => String(discoverer.id) == id)
+        //)
+    //);
   }, [id]);
 
   return (

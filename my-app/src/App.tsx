@@ -4,6 +4,10 @@ import { HomePage } from "./pages/HomePage";
 import DiscovererListPage from "./pages/DiscovererList";
 import { DiscovererDetailPage } from "./pages/DiscovererDetail";
 import { useEffect } from "react";
+import LoginPage from "./pages/LoginPage"
+import Header from './components/Header.tsx'
+import CartPage from "./pages/DiscoveryDraftPage";
+import DiscoveriesTablePage from "./pages/DiscoveryPage.tsx";
 
 function App() {
   useEffect(() => {
@@ -25,10 +29,14 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Header />
       <Routes>
         <Route path={ROUTES.HOME} element={<HomePage />} />
         <Route path={ROUTES.SERVICES} element={<DiscovererListPage />} />
         <Route path={`${ROUTES.SERVICES}/:id`} element={<DiscovererDetailPage />} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.DISCOVERY} element={<DiscoveriesTablePage/>} />
+        <Route path={`${ROUTES.DISCOVERY}/:id`} element={<CartPage />} />
       </Routes>
     </BrowserRouter>
   );

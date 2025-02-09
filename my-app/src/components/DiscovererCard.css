@@ -1,6 +1,74 @@
-.card {
-    --bs-card-spacer-x: 0; /* Убираем горизонтальные отступы */
-    --bs-card-spacer-y: 0; /* Убираем вертикальные отступы */
-    padding: 0; /* Гарантируем отсутствие внутренних отступов */
-    margin: 0; /* Убираем внешние отступы */
-}
+/* Общие стили для карточек */
+.card, .fav-card {
+    width: 240px; /* Ширина карточки */
+    background-color: #739263; /* Цвет фона */
+    border-radius: 15px; /* Одинаковое скругление углов */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff; /* Цвет текста */
+    transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
+    border: 2px solid #004080; /* Рамка */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  /* Стили для изображения */
+  .cardImage, .fav-card-image {
+    width: 100%;
+    height: 200px; /* Высота изображения */
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  /* Стили для заголовка */
+  .cardTitle, .fav-card-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #fff;
+  }
+  
+  /* Стили для кнопок */
+  .cardButton, .fav-btn {
+    background-color: #607848;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .cardButton:hover, .fav-btn:hover {
+    background-color: #4a6d3b;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Стили для Row и Col */
+  .custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Расстояние между карточками */
+    justify-content: center;
+  }
+  
+  .custom-row .col {
+    flex: 1 1 calc(25% - 16px); /* 4 карточки в ряду */
+  }
+  
+  @media (max-width: 768px) {
+    .custom-row .col {
+      flex: 1 1 calc(50% - 16px); /* 2 карточки в ряду */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .custom-row .col {
+      flex: 1 1 100%; /* 1 карточка на мобильных устройствах */
+    }
+  }
+  

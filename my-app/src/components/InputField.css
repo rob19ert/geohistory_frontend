@@ -14,3 +14,18 @@
     place-items: center; /* Центрирует и по вертикали, и по горизонтали */
     height: 100vh; /* Занимает всю высоту экрана для демонстрации */
 }
+.btn-favorites img {
+    width: 32px;  /* Устанавливаем ширину */
+    height: 32px; /* Устанавливаем высоту */
+    object-fit: contain; /* Подгоняем изображение без обрезки */
+    margin-right: 5px; /* Добавляем отступ */
+  }
+  
+  .btn-favorites {
+    background: transparent !important; /* Делаем фон прозрачным */
+    border: none !important;  /* Убираем границу */
+    padding: 0; /* Убираем внутренние отступы */
+    display: flex; /* Чтобы контент внутри кнопки не смещался */
+    align-items: center; /* Выравниваем по центру */
+  }
+  
