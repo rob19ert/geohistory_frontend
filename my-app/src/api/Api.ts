@@ -61,21 +61,12 @@ export interface Discovery {
   id?: number;
   /** Status */
   status: "draft" | "deleted" | "formed" | "completed" | "rejected";
-  /**
-   * Created at
-   * @format date-time
-   */
+  /** Created at */
   created_at?: string;
-  /**
-   * Formed at
-   * @format date-time
-   */
-  formed_at?: string | null;
-  /**
-   * Completed at
-   * @format date-time
-   */
-  completed_at?: string | null;
+  /** Formed at */
+  formed_at?: string;
+  /** Completed at */
+  completed_at?: string;
   /**
    * Creator login
    * @minLength 1
@@ -93,6 +84,8 @@ export interface Discovery {
    */
   region: string;
   discoverers?: Discoverers[];
+  /** Qr */
+  qr?: string | null;
 }
 
 export interface User {
@@ -215,7 +208,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://localhost:8000", withCredentials: true, });
+    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://localhost:8000", withCredentials: true });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
