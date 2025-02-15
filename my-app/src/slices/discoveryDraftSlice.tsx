@@ -13,7 +13,7 @@ interface Discoverer {
 }
 
 
-// 📌 Интерфейс заявки
+// 🤝 Интерфейс заявки
 interface DiscoveryData {
   id: number ;
   status: string;
@@ -50,7 +50,7 @@ export const discoveriesRead = createAsyncThunk(
       console.log("📡 Отправляем запрос через API-клиент:", id);
       console.log("🔑 CSRF-токен:", csrfToken);
 
-      const response = await api.discoveries.discoveriesRead(id, {
+      const response = await api.api.apiDiscoveriesRead(id, {
         headers: {
           "X-CSRFToken": csrfToken, // ✅ Передаем CSRF-токен
           //"Referer": "http://localhost:3000", // ✅ Django требует Referer
@@ -76,34 +76,38 @@ export const discoveriesRead = createAsyncThunk(
 );
 
 
-// 📌 Добавление первооткрывателя в заявку (метод API ничего не возвращает!)
 export const discoveriesAddDiscovererCreate = createAsyncThunk(
   "discoveriesAdd/addDiscovererToDiscovery",
-  async ({ explorer_id }: { explorer_id: number }, { rejectWithValue }) => {
+  async ({ explorer_id }: { explorer_id: number }, { rejectWithValue, dispatch }) => {
     try {
-      const csrfToken = Cookies.get("csrftoken"); // 🛠 Получаем CSRF-токен
+      const csrfToken = Cookies.get("csrftoken");
 
       console.log("📡 Отправляем запрос через API-клиент:", { explorer_id, csrfToken });
 
-      await api.discoveries.discoveriesAddDiscovererCreate(
+      const response = await api.api.apiDiscoveriesAddDiscovererCreate(
         { explorer_id },
         {
           headers: {
-            "X-CSRFToken": csrfToken, // ✅ Передаем CSRF-токен
-           // "Referer": "http://localhost:3000", // ✅ Django требует Referer
+            "X-CSRFToken": csrfToken,
           },
-          withCredentials: true, // ✅ Передаем куки (session_id)
+          withCredentials: true,
         }
       );
 
-      console.log("✅ Исследователь добавлен");
-      return { explorer_id };
+      console.log("✅ Исследователь добавлен, ответ сервера:", response);
+
+      return response.data; // API возвращает void, тут просто response без обработки
     } catch (error) {
       console.error("❌ Ошибка при добавлении первооткрывателя:", error);
+
+     
+
       return rejectWithValue("Ошибка добавления первооткрывателя");
     }
   }
 );
+
+
 
 export const deleteDiscoveries = createAsyncThunk(
   "vacancyApplication/deleteVacancyApplication",
@@ -114,7 +118,7 @@ export const deleteDiscoveries = createAsyncThunk(
       console.log("📡 Отправляем DELETE запрос:", id);
       console.log("🔑 CSRF-токен:", csrfToken);
 
-      const response = await api.discoveries.discoveriesDelete(id, {
+      const response = await api.api.apiDiscoveriesDelete(id, {
         headers: {
           "X-CSRFToken": csrfToken, // ✅ Передаем CSRF-токен
          // "Referer": "http://localhost:3000", // ✅ Django требует Referer
@@ -148,7 +152,7 @@ export const updateDiscoveries = createAsyncThunk(
 
       console.log("📡 Отправка запроса на обновление:", discoveryDataToSend);
 
-      const response = await api.discoveries.discoveriesUpdate(id, discoveryDataToSend, {
+      const response = await api.api.apiDiscoveriesUpdate(id, discoveryDataToSend, {
         headers: {
           "X-CSRFToken": csrfToken, // ✅ Добавили CSRF-токен
          // "Referer": "http://localhost:3000", // ✅ Добавили Referer
@@ -165,13 +169,36 @@ export const updateDiscoveries = createAsyncThunk(
   }
 );
 
+export const submitDiscoveries = createAsyncThunk(
+  "discoveries/submitDiscoveries",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const csrfToken = Cookies.get("csrftoken");
+      const response = await api.api.apiDiscoveriesSubmitUpdate(
+        id, 
+        {}, // 👈 Второй аргумент - тело запроса (если пустое, передаем `{}`)
+        { // 👈 Третий аргумент - конфигурация запроса (заголовки)
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("❌ Ошибка при отправке заявки:", error);
+      return rejectWithValue("Ошибка отправки заявки");
+    }
+  }
+);
+
 
 export const deleteDiscovererFromDiscovery = createAsyncThunk(
   "cities/deleteCityFromVacancyApplication",
   async ({ discoveryId, discovererId }: { discoveryId: number; discovererId: number }) => {
     const csrfToken = Cookies.get("csrftoken");
 
-    await api.discoveries.discoveriesExplorersRemoveDelete(
+    await api.api.apiDiscoveriesExplorersRemoveDelete(
       discoveryId.toString(),
       discovererId.toString(),
       {
@@ -291,6 +318,13 @@ const discoveryDraftSlice = createSlice({
       })
       .addCase(updateDiscoveries.rejected, (state) => {
         state.error = 'Ошибка при обновлении данных';
+      })
+      .addCase(submitDiscoveries.fulfilled, (state, action) => {
+        state.discoveryData = action.payload;
+        state.isDraft = false; // Так как статус сменился
+      })
+      .addCase(submitDiscoveries.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });

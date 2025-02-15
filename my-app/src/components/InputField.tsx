@@ -46,28 +46,29 @@ const InputField: FC<Props> = ({ value, setValue, loading, onSubmit, placeholder
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
       />
-      <Button onClick={onSubmit} disabled={loading}>
+      <Button className="searchButton" onClick={onSubmit} disabled={loading}>
         {buttonTitle}
       </Button>
+      
+            {isAuthenticated && id && (
+        <Col xs={2} sm={2} md={2}>
+          <Button 
+            className="btn-favorites position-relative" 
+            onClick={() => handleClick(id)} 
+            disabled={!id}
+          >
+            <img src={favoriteImg} alt="Избранное" />
+            {count > 0 && (
+              <span 
+                className="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle"
+              >
+                {count}
+              </span>
+            )}
+          </Button>
+        </Col>
+      )}
 
-      <Col xs={2} sm={2} md={2}>
-            <Button 
-              className="btn-favorites position-relative" 
-              onClick={() => handleClick(id ? id : null)} 
-              disabled={!isAuthenticated || !id}
-            >
-              <img src={favoriteImg} alt="Избранное" />
-              
-              {/* Отображение count только если пользователь аутентифицирован и есть id */}
-              {(isAuthenticated && id) && (
-                <span 
-                  className="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle"
-                >
-                  {count}
-                </span>
-              )}
-            </Button>
-          </Col>
 
     </div>
   );

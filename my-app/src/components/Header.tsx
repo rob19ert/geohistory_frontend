@@ -19,7 +19,10 @@ const linkStyle = {
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const username = useSelector((state: RootState) => state.user.username);
+ 
+  const username = useSelector((state: RootState) => state.user?.username);
+
+
   const isAuthenticated = useSelector(
     (state: RootState) => state.user.isAuthenticated
   );
@@ -27,7 +30,7 @@ const Header = () => {
   const handleExit = async () => {
     await dispatch(logoutUserAsync());
     dispatch(setSearchValue(""));
-    navigate("/discoverers");
+    navigate("/login");
     await dispatch(getDiscoverersList());
   };
 
@@ -71,7 +74,7 @@ const Header = () => {
 
           {/* Имя пользователя */}
           {isAuthenticated && (
-            <NavLink to={ROUTES.SERVICES} style={linkStyle}>
+            <NavLink to={ROUTES.PROFILE} style={linkStyle}>
               {username}
             </NavLink>
           )}

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { Discoverer, getDiscovererId } from "../modules/DiscovererApi";
 import {Col, Row, Spinner, Image } from "react-bootstrap";
 import { DISCOVERER_MOCK } from "../modules/mock";
-import defaultImg from "../components/columb.jpg"
+import defaultImg from "../components/default.jpg"
 
 export const DiscovererDetailPage: FC = () => {
     const [pageData, setPageData] = useState<Discoverer>();
@@ -16,11 +16,11 @@ export const DiscovererDetailPage: FC = () => {
     if (!id) return;
     getDiscovererId(id)
     .then((response) => setPageData(response))
-    //.catch(() =>
-      //  setPageData (
-        //    DISCOVERER_MOCK.find((discoverer) => String(discoverer.id) == id)
-        //)
-    //);
+    .catch(() =>
+        setPageData (
+            DISCOVERER_MOCK.find((discoverer) => String(discoverer.id) == id)
+        )
+    );
   }, [id]);
 
   return (
@@ -33,7 +33,7 @@ export const DiscovererDetailPage: FC = () => {
       />
       {pageData ? ( // проверка на наличие данных, иначе загрузка
         <div className="container2">
-            <div className="penis">
+            <div className="spirit">
         <Row className="justify-content-center">
           <Col md={12} className="text-center">
             <p className="font-60">{pageData.name}</p> {/* Имя сверху */}

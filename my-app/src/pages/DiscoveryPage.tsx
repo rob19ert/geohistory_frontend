@@ -1,18 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
-import axios from "axios";
+import React, { ChangeEvent, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTE_LABELS, ROUTES } from "../Routes";
 import { AppDispatch, RootState } from "../store";
-import { getDiscoveries } from "../slices/discovererSlice";
-import { Button, Table, Spinner } from "react-bootstrap";
-
+import { completedDiscoveries, getDiscoveries, setStatus } from "../slices/discovererSlice";
+import { Button, Table, Spinner, Row, Col, Form } from "react-bootstrap";
 import { BreadCrumbs } from "../components/BreadCrumbs";
 
 const DiscoveriesTablePage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { discoveries, loading } = useSelector(
+  const { discoveries, loading, status } = useSelector(
     (state: RootState) => state.discoveries
   );
   const navigate = useNavigate();
@@ -24,6 +22,26 @@ const DiscoveriesTablePage = () => {
   const handleCardClick = (id: number | undefined) => {
     navigate(`${ROUTES.DISCOVERY}/${id}`);
   };
+
+  const handleButtonClick = (
+    id: number | undefined,
+    action: "completed" | "rejected"
+  ) => {
+    if (!id) return;
+
+    const discoveryData = discoveries.find((item) => item.id === id);
+    if (!discoveryData) return;
+
+    dispatch(completedDiscoveries({ id: id.toString(), action }));
+  };
+
+  const handleStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setStatus(e.target.value));
+  };
+
+  const filteredDiscoveries = discoveries.filter((item) =>
+    status ? item.status === status : true
+  );
 
   return (
     <>
@@ -40,25 +58,45 @@ const DiscoveriesTablePage = () => {
           },
         ]}
       />
+      <div className="filter-container" style={{ padding: "20px", backgroundColor: "#f7f7f7" }}>
+        <Row>
+          <Col md={3}>
+            <Form.Group controlId="statusFilter">
+              <Form.Label>Статус</Form.Label>
+              <Form.Control
+                as="select"
+                className="custom-focus"
+                value={status}
+                onChange={handleStatusChange}
+              >
+                <option value="">Все</option>
+                <option value="formed">Сформирована</option>
+                <option value="completed">Принята</option>
+                <option value="rejected">Отклонена</option>
+                <option value="deleted">Удалена</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+      </div>
       <div className="overflow-x-auto p-4">
         <Table striped bordered hover responsive className="text-center">
           <thead className="table-header">
-            {" "}
-            {/* Применяем кастомный класс */}
             <tr>
               <th>ID</th>
               <th>Статус</th>
               <th>Дата создания</th>
               <th>Дата компиляции</th>
               <th>Дата завершения</th>
-
               <th>Создатель</th>
               <th>Модератор</th>
               <th>Регион</th>
+              <th>Действие</th>
+              <th>Qr</th>
             </tr>
           </thead>
           <tbody>
-            {discoveries.map((item) => (
+            {filteredDiscoveries.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.status}</td>
@@ -69,12 +107,32 @@ const DiscoveriesTablePage = () => {
                 <td>{item.moderator_login}</td>
                 <td>{item.region}</td>
                 <td>
-                  <Button
-                    variant="success"
-                    onClick={() => handleCardClick(item.id)}
-                  >
+                  <Button variant="success" onClick={() => handleCardClick(item.id)}>
                     Открыть
                   </Button>
+                  {item.status === "formed" && (
+                    <>
+                      <Button
+                        variant="success"
+                        className="mx-2"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleButtonClick(item.id, "completed");
+                        }}
+                      >
+                        Принять
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleButtonClick(item.id, "rejected");
+                        }}
+                      >
+                        Отклонить
+                      </Button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

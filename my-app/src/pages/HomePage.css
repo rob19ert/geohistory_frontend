@@ -1,4 +1,4 @@
-.container {
+.homepage {
     display: flex;
     flex-direction: column;
     /* padding: 20px 40px; */
@@ -10,7 +10,7 @@
     filter: blur(8px);
 }
 @media (max-width: 600px) {
-    .container{
+    .homepage{
         min-width:auto;
     }
 }

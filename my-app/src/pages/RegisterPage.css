@@ -1,0 +1,79 @@
+.register-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e8e6e6;
+  }
+  
+  .register-card {
+    width: 100%;
+    height: 100%;
+    max-width: 700px;
+    max-height: 500px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+
+  .cardio-body {
+    padding: 10px; 
+    background-color: #c9cbd0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000000;
+  }
+  
+  .register-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .register-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .custom-focus:focus {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5) !important;
+  }
+  .register-button {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  
+  .register-button:hover {
+    background-color: #ddd;
+    color: #000;
+  }
+  
+  .register-footer {
+    text-align: center;
+    margin-top: 15px;
+    color: #555;
+  }
+  
+  .register-footer a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  .register-footer a:hover {
+    text-decoration: underline;
+  }
+  

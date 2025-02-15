@@ -6,6 +6,8 @@ import { loginUserAsync } from '../slices/userSlice';
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { ROUTES } from '../Routes';
+import { NavLink } from "react-router-dom";
+import './LoginPage.css'
 
 const LoginPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -57,10 +59,17 @@ const LoginPage: React.FC = () => {
                             placeholder="Введите пароль"
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit" style={{ width: '100%' }}>
+                    <Button variant="primary" type="submit" className="enter-button" style={{ width: '100%'  }}>
                         Войти
                     </Button>
                 </Form>
+                <div className="mt-3">
+                  <p className="mb-0 text-center">
+                    Нет акаунта?{" "}
+                    <NavLink className={"login-footer"} to={ROUTES.REGISTER}>Зарегистрируйся</NavLink>
+                  </p>
+                
+              </div>
             </Container>
         </Container>
     );

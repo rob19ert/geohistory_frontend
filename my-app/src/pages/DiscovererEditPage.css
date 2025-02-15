@@ -1,0 +1,63 @@
+.edit-container {
+    background: #e8e6e6;
+
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .edit-page {
+    width: 700px; /* Делаем карточку шире */
+   
+    padding: 20px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 280px;
+  }
+  
+  .cardio-edit {
+    padding: 15px;
+    background-color: #c9cbd0;
+
+  }
+  
+  .custom-focus:focus {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  
+  .form-row .form-group {
+    flex: 1; /* Равномерное распределение */
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .save-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .save-button button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    background: #28a745;
+    border: none;
+    color: white;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .save-button button:hover {
+    background: #218838;
+  }
+  

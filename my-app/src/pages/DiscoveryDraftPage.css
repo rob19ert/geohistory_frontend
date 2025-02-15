@@ -83,7 +83,10 @@
     background: linear-gradient(45deg, #0056b3, #003f8a);
     transform: scale(1.05);
   }
-  
+  button.save-button {
+    padding: 10px;
+    margin: 10px;
+  }
   /* 📱 Медиа-запрос для мобильных устройств */
   @media (max-width: 768px) {
     .cart-content {

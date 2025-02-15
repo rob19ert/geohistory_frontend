@@ -1,0 +1,62 @@
+/* Зелёный фон */
+.profile-container {
+    background-color: #e8e6e6;
+    min-height: 100vh; /* Высота экрана */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Для адаптивности */
+  }
+  
+  /* Карточка профиля */
+  .profile-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 600px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border: none;
+  }
+  
+  /* Поля формы */
+  .form-control {
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .cardio {
+    padding: 10px; 
+    background-color: #c9cbd0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000000;
+  }
+  /* Кнопка */
+  .custom-button {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-button:hover {
+    background-color: #ddd;
+    color: #000;
+  }
+  
+  /* Ссылка */
+  .custom-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  .custom-link:hover {
+    text-decoration: underline;
+  }
+  

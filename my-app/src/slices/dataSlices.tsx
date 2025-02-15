@@ -24,7 +24,7 @@ export const getDiscoverersList = createAsyncThunk(
 
       console.log("🚀 Отправляем запрос в API с параметром:", searchValue);
       try {
-        const response = await api.discoverers.discoverersList({discovererName: searchValue});
+        const response = await api.api.apiDiscoverersList({discovererName: searchValue});
         console.log("✅ API вернул данные:", response.data);
         const draft_id = response.data.draft_id;
         const draft_count = response.data.draft_count;

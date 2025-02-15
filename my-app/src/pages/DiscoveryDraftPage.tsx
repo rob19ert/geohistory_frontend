@@ -7,9 +7,10 @@ import { AppDispatch, RootState } from "../store";
 import { discoveriesRead } from "../slices/discoveryDraftSlice";
 import { ROUTES } from "../Routes";
 import { DiscovererCard } from "../components/DiscovererCard";
-import { deleteDiscoveries, setError } from '../slices/discoveryDraftSlice';
+import { deleteDiscoveries, setError, submitDiscoveries } from '../slices/discoveryDraftSlice';
 import { updateDiscoveries,setDiscoveryData } from "../slices/discoveryDraftSlice";
 import "./DiscoveryDraftPage.css"
+
 const CartPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -56,7 +57,17 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
       }
     }
   }
-
+  const handleSubmitApplication = async () => {
+    if (id) {
+      try {
+        await dispatch(submitDiscoveries(id)).unwrap();
+        navigate(ROUTES.SERVICES); // Перенаправление после успешной отправки
+      } catch (error) {
+        dispatch(setError(error));
+      }
+    }
+  };
+  
 
 
   const { discoverers, discoveryData, error } = useSelector(
@@ -138,9 +149,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
               />
             </Form.Group>
 
-            <Button type="submit" className="save-button" onClick={handleSaveVacancy}>
-              Сохранить
-            </Button>
+
           </>
         ) : (
           discoveryData && (
@@ -173,9 +182,14 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
           </Button>
         )}
 
-        <Button variant="primary" className="mt-3">
-          Оформить заявку
-        </Button>
+        <Button type="submit" className="save-button" onClick={handleSaveVacancy}>
+              Сохранить
+            </Button>
+
+            <Button type="submit" className="submit-button" onClick={handleSubmitApplication}>
+                Оформить заявку
+            </Button>
+
       </div>
     </div>
   );

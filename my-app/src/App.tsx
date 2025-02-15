@@ -8,7 +8,11 @@ import LoginPage from "./pages/LoginPage"
 import Header from './components/Header.tsx'
 import CartPage from "./pages/DiscoveryDraftPage";
 import DiscoveriesTablePage from "./pages/DiscoveryPage.tsx";
+import { RegisterPage } from "./pages/RegisterPage.tsx";
+import UserProfilePage from "./pages/userProfile.tsx"
+import { DiscovererEditPage
 
+ } from "./pages/DiscovererEditPage.tsx";
 function App() {
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).__TAURI__?.tauri) {
@@ -35,8 +39,12 @@ function App() {
         <Route path={ROUTES.SERVICES} element={<DiscovererListPage />} />
         <Route path={`${ROUTES.SERVICES}/:id`} element={<DiscovererDetailPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
         <Route path={ROUTES.DISCOVERY} element={<DiscoveriesTablePage/>} />
         <Route path={`${ROUTES.DISCOVERY}/:id`} element={<CartPage />} />
+        <Route path={ROUTES.PROFILE} element={<UserProfilePage />} />
+        <Route path={`${ROUTES.SERVICES}/:id/edit`} element={<DiscovererEditPage/>} />
+        <Route path={`${ROUTES.SERVICES}/add-service`} element={<DiscovererEditPage/>} />
       </Routes>
     </BrowserRouter>
   );

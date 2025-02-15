@@ -10,7 +10,7 @@ import imgCarouselThree from '../components/ImageThree.jpg'
 
 export const HomePage: FC = () => {
     return (
-        <Container style={{ display: 'flex', alignItems: 'center', marginTop: '0px'}}>
+        <Container className="homePage" style={{ display: 'flex', alignItems: 'center', marginTop: '0px'}}>
       <Row>
         <Col md={6}>
           {/* <p className="font-40" id='font-40-home'>

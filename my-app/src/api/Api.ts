@@ -9,39 +9,6 @@
  * ---------------------------------------------------------------
  */
 
-export interface User {
-  /**
-   * Username
-   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-   * @minLength 1
-   * @maxLength 150
-   * @pattern ^[\w.@+-]+$
-   */
-  username: string;
-  /**
-   * Email address
-   * @format email
-   * @maxLength 254
-   */
-  email?: string;
-  /**
-   * Password
-   * @minLength 1
-   * @maxLength 128
-   */
-  password: string;
-  /**
-   * Is staff
-   * @default false
-   */
-  is_staff?: boolean;
-  /**
-   * Is superuser
-   * @default false
-   */
-  is_superuser?: boolean;
-}
-
 export interface Discoverers {
   /** ID */
   id?: number;
@@ -128,7 +95,44 @@ export interface Discovery {
   discoverers?: Discoverers[];
 }
 
+export interface User {
+  /** ID */
+  id?: number;
+  /**
+   * Username
+   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+   * @minLength 1
+   * @maxLength 150
+   * @pattern ^[\w.@+-]+$
+   */
+  username: string;
+  /**
+   * Email address
+   * @format email
+   * @maxLength 254
+   */
+  email?: string;
+  /**
+   * Password
+   * @minLength 1
+   * @maxLength 128
+   */
+  password: string;
+  /**
+   * Is staff
+   * @default false
+   */
+  is_staff?: boolean;
+  /**
+   * Is superuser
+   * @default false
+   */
+  is_superuser?: boolean;
+}
+
 export interface UserUpdate {
+  /** ID */
+  id?: number;
   /**
    * Username
    * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
@@ -158,6 +162,12 @@ export interface UserUpdate {
    * Designates whether the user can log into this admin site.
    */
   is_staff?: boolean;
+  /**
+   * Password
+   * @minLength 1
+   * @maxLength 128
+   */
+  password?: string;
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
@@ -205,7 +215,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://localhost:8000" });
+    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://localhost:8000", withCredentials: true, });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -310,147 +320,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags api
-     * @name ApiLoginCreate
-     * @request POST:/api/login/
-     * @secure
-     */
-    apiLoginCreate: (data: User, params: RequestParams = {}) => {
-        console.log("🚀 Отправляем запрос в API с параметрами:", data);
-        return this.request<User, any>({
-          path: `/api/login/`,
-          method: "POST",
-          body: JSON.stringify(data),
-          secure: false, 
-          format: "json",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          ...params,
-        }).then((response) => {
-          console.log("✅ Ответ от сервера:", response);
-          return response;
-        }).catch((error) => {
-          console.error("❌ Ошибка запроса:", error);
-          throw error;
-        });
-      },
-      
-
-    /**
-     * No description
-     *
-     * @tags api
-     * @name ApiUsersList
-     * @request GET:/api/users/
-     * @secure
-     */
-    apiUsersList: (params: RequestParams = {}) =>
-      this.request<User[], any>({
-        path: `/api/users/`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags api
-     * @name ApiUsersCreate
-     * @request POST:/api/users/
-     * @secure
-     */
-    apiUsersCreate: (data: User, params: RequestParams = {}) =>
-      this.request<User, any>({
-        path: `/api/users/`,
-        method: "POST",
-        body: data,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags api
-     * @name ApiUsersRead
-     * @request GET:/api/users/{id}/
-     * @secure
-     */
-    apiUsersRead: (id: number, params: RequestParams = {}) =>
-      this.request<User, any>({
-        path: `/api/users/${id}/`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags api
-     * @name ApiUsersUpdate
-     * @request PUT:/api/users/{id}/
-     * @secure
-     */
-    apiUsersUpdate: (id: number, data: User, params: RequestParams = {}) =>
-      this.request<User, any>({
-        path: `/api/users/${id}/`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags api
-     * @name ApiUsersPartialUpdate
-     * @request PATCH:/api/users/{id}/
-     * @secure
-     */
-    apiUsersPartialUpdate: (id: number, data: User, params: RequestParams = {}) =>
-      this.request<User, any>({
-        path: `/api/users/${id}/`,
-        method: "PATCH",
-        body: data,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags api
-     * @name ApiUsersDelete
-     * @request DELETE:/api/users/{id}/
-     * @secure
-     */
-    apiUsersDelete: (id: number, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/users/${id}/`,
-        method: "DELETE",
-        secure: true,
-        ...params,
-      }),
-  };
-  discoverers = {
-    /**
-     * No description
-     *
-     * @tags discoverers
-     * @name DiscoverersList
+     * @name ApiDiscoverersList
      * @summary Получить список первооткрывателей
-     * @request GET:/discoverers/
+     * @request GET:/api/discoverers/
      * @secure
      */
-    discoverersList: (
+    apiDiscoverersList: (
       query?: {
         /** Имя первооткрывателя */
         name?: string;
@@ -458,7 +333,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<Discoverers[], any>({
-        path: `discoverers/`,
+        path: `/discoverers/`,
         method: "GET",
         query: query,
         secure: true,
@@ -469,13 +344,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoverers
-     * @name DiscoverersCreate
+     * @tags api
+     * @name ApiDiscoverersCreate
      * @summary Создать первооткрывателя
-     * @request POST:/discoverers/
+     * @request POST:/api/discoverers/
      * @secure
      */
-    discoverersCreate: (data: Discoverers, params: RequestParams = {}) =>
+    apiDiscoverersCreate: (data: Discoverers, params: RequestParams = {}) =>
       this.request<Discoverers, void>({
         path: `/discoverers/`,
         method: "POST",
@@ -488,13 +363,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoverers
-     * @name DiscoverersRead
+     * @tags api
+     * @name ApiDiscoverersRead
      * @summary Получить первооткрывателя
-     * @request GET:/discoverers/{id}/
+     * @request GET:/api/discoverers/{id}/
      * @secure
      */
-    discoverersRead: (id: string, params: RequestParams = {}) =>
+    apiDiscoverersRead: (id: string, params: RequestParams = {}) =>
       this.request<Discoverers, void>({
         path: `/discoverers/${id}/`,
         method: "GET",
@@ -506,13 +381,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoverers
-     * @name DiscoverersUpdate
+     * @tags api
+     * @name ApiDiscoverersUpdate
      * @summary Обновить данные первооткрывателя
-     * @request PUT:/discoverers/{id}/
+     * @request PUT:/api/discoverers/{id}/
      * @secure
      */
-    discoverersUpdate: (id: string, data: Discoverers, params: RequestParams = {}) =>
+    apiDiscoverersUpdate: (id: string, data: Discoverers, params: RequestParams = {}) =>
       this.request<Discoverers, void>({
         path: `/discoverers/${id}/`,
         method: "PUT",
@@ -525,13 +400,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoverers
-     * @name DiscoverersDelete
+     * @tags api
+     * @name ApiDiscoverersDelete
      * @summary Удалить первооткрывателя
-     * @request DELETE:/discoverers/{id}/
+     * @request DELETE:/api/discoverers/{id}/
      * @secure
      */
-    discoverersDelete: (id: string, params: RequestParams = {}) =>
+    apiDiscoverersDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/discoverers/${id}/`,
         method: "DELETE",
@@ -540,34 +415,33 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description Update patronage image (logo) for a specific patronage
+     * @description Upload or update an image for a discoverer
      *
-     * @tags discoverers
-     * @name DiscoverersUploadImageCreate
-     * @request POST:/discoverers/{id}/upload-image/
+     * @tags api
+     * @name ApiDiscoverersUploadImageCreate
+     * @request POST:/api/discoverers/{id}/upload-image/
      * @secure
      */
-    discoverersUploadImageCreate: (discovererId: string, data: Discoverers, params: RequestParams = {}) =>
+    apiDiscoverersUploadImageCreate: (id: string, pk: number, data: Discoverers, params: RequestParams = {}) =>
       this.request<Discoverers, void>({
-        path: `/discoverers/${discovererId}/upload-image/`,
+        path: `/discoverers/${id}/upload-image/`,
         method: "POST",
         body: data,
         secure: true,
         format: "json",
         ...params,
       }),
-  };
-  discoveries = {
+
     /**
      * No description
      *
-     * @tags discoveries
-     * @name DiscoveriesList
+     * @tags api
+     * @name ApiDiscoveriesList
      * @summary Получить список открытий
-     * @request GET:/discoveries/
+     * @request GET:/api/discoveries/
      * @secure
      */
-    discoveriesList: (
+    apiDiscoveriesList: (
       query?: {
         /** Фильтрация по статусу открытия */
         status?: string;
@@ -596,12 +470,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * @description Добавление исследователя в черновик
      *
-     * @tags discoveries
-     * @name DiscoveriesAddDiscovererCreate
-     * @request POST:/discoveries/add-discoverer/
+     * @tags api
+     * @name ApiDiscoveriesAddDiscovererCreate
+     * @request POST:/api/discoveries/add-discoverer/
      * @secure
      */
-    discoveriesAddDiscovererCreate: (
+    apiDiscoveriesAddDiscovererCreate: (
       data: {
         /** ID исследователя */
         explorer_id: number;
@@ -620,12 +494,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoveries
-     * @name DiscoveriesExplorersRemoveDelete
-     * @request DELETE:/discoveries/{discovery_id}/explorers/{discoverer_id}/remove/
+     * @tags api
+     * @name ApiDiscoveriesExplorersRemoveDelete
+     * @request DELETE:/api/discoveries/{discovery_id}/explorers/{discoverer_id}/remove/
      * @secure
      */
-    discoveriesExplorersRemoveDelete: (discoveryId: string, discovererId: string, params: RequestParams = {}) =>
+    apiDiscoveriesExplorersRemoveDelete: (discoveryId: string, discovererId: string, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/discoveries/${discoveryId}/explorers/${discovererId}/remove/`,
         method: "DELETE",
@@ -636,12 +510,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoveries
-     * @name DiscoveriesExplorersUpdateUpdate
-     * @request PUT:/discoveries/{discovery_id}/explorers/{discoverer_id}/update/
+     * @tags api
+     * @name ApiDiscoveriesExplorersUpdateUpdate
+     * @request PUT:/api/discoveries/{discovery_id}/explorers/{discoverer_id}/update/
      * @secure
      */
-    discoveriesExplorersUpdateUpdate: (discoveryId: string, discovererId: string, params: RequestParams = {}) =>
+    apiDiscoveriesExplorersUpdateUpdate: (discoveryId: string, discovererId: string, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/discoveries/${discoveryId}/explorers/${discovererId}/update/`,
         method: "PUT",
@@ -652,13 +526,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags discoveries
-     * @name DiscoveriesRead
+     * @tags api
+     * @name ApiDiscoveriesRead
      * @summary Создать открытие
-     * @request GET:/discoveries/{id}/
+     * @request GET:/api/discoveries/{id}/
      * @secure
      */
-    discoveriesRead: (id: string, params: RequestParams = {}) =>
+    apiDiscoveriesRead: (id: string, params: RequestParams = {}) =>
       this.request<Discovery, void>({
         path: `/discoveries/${id}/`,
         method: "GET",
@@ -670,12 +544,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * @description Update a specific disability request (only 'draft' status can be updated).
      *
-     * @tags discoveries
-     * @name DiscoveriesUpdate
-     * @request PUT:/discoveries/{id}/
+     * @tags api
+     * @name ApiDiscoveriesUpdate
+     * @request PUT:/api/discoveries/{id}/
      * @secure
      */
-    discoveriesUpdate: (id: string, data: Discovery, params: RequestParams = {}) =>
+    apiDiscoveriesUpdate: (id: string, data: Discovery, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/discoveries/${id}/`,
         method: "PUT",
@@ -687,12 +561,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * @description Soft delete a specific disability request (marks it as 'deleted').
      *
-     * @tags discoveries
-     * @name DiscoveriesDelete
-     * @request DELETE:/discoveries/{id}/
+     * @tags api
+     * @name ApiDiscoveriesDelete
+     * @request DELETE:/api/discoveries/{id}/
      * @secure
      */
-    discoveriesDelete: (id: string, params: RequestParams = {}) =>
+    apiDiscoveriesDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/discoveries/${id}/`,
         method: "DELETE",
@@ -703,12 +577,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * @description Complete or reject a disability request. Based on the action parameter, update the status to 'completed' or 'rejected'.
      *
-     * @tags discoveries
-     * @name DiscoveriesCompleteOrRejectUpdate
-     * @request PUT:/discoveries/{id}/complete_or_reject/
+     * @tags api
+     * @name ApiDiscoveriesCompleteOrRejectUpdate
+     * @request PUT:/api/discoveries/{id}/complete_or_reject/
      * @secure
      */
-    discoveriesCompleteOrRejectUpdate: (
+    apiDiscoveriesCompleteOrRejectUpdate: (
       id: string,
       data: Discovery,
       query?: {
@@ -730,18 +604,176 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * @description Submit a disability request, updating its status to 'formed' and setting the data_compilation date.
      *
-     * @tags discoveries
-     * @name DiscoveriesSubmitUpdate
-     * @request PUT:/discoveries/{id}/submit/
+     * @tags api
+     * @name ApiDiscoveriesSubmitUpdate
+     * @request PUT:/api/discoveries/{id}/submit/
      * @secure
      */
-    discoveriesSubmitUpdate: (id: string, data: Discovery, params: RequestParams = {}) =>
+    apiDiscoveriesSubmitUpdate: (id: string, data: Discovery, params: RequestParams = {}) =>
       this.request<Discovery, void>({
         path: `/discoveries/${id}/submit/`,
         method: "PUT",
         body: data,
         secure: true,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiLoginCreate
+     * @request POST:/api/login/
+     * @secure
+     */
+    apiLoginCreate: (data: User, params: RequestParams = {}) =>
+      this.request<User, any>({
+        path: `/login/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUpdateProfileUpdate
+     * @request PUT:/api/update-profile/
+     * @secure
+     */
+    apiUpdateProfileUpdate: (data: UserUpdate, params: RequestParams = {}) =>
+      this.request<UserUpdate, any>({
+        path: `/update-profile/`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUpdateProfilePartialUpdate
+     * @request PATCH:/api/update-profile/
+     * @secure
+     */
+    apiUpdateProfilePartialUpdate: (data: UserUpdate, params: RequestParams = {}) =>
+      this.request<UserUpdate, any>({
+        path: `/update-profile/`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUsersList
+     * @request GET:/api/users/
+     * @secure
+     */
+    apiUsersList: (params: RequestParams = {}) =>
+      this.request<User[], any>({
+        path: `/users/`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUsersCreate
+     * @request POST:/api/users/
+     * @secure
+     */
+    apiUsersCreate: (data: User, params: RequestParams = {}) =>
+      this.request<User, any>({
+        path: `/users/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUsersRead
+     * @request GET:/api/users/{id}/
+     * @secure
+     */
+    apiUsersRead: (id: number, params: RequestParams = {}) =>
+      this.request<User, any>({
+        path: `/users/${id}/`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUsersUpdate
+     * @request PUT:/api/users/{id}/
+     * @secure
+     */
+    apiUsersUpdate: (id: number, data: User, params: RequestParams = {}) =>
+      this.request<User, any>({
+        path: `/users/${id}/`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUsersPartialUpdate
+     * @request PATCH:/api/users/{id}/
+     * @secure
+     */
+    apiUsersPartialUpdate: (id: number, data: User, params: RequestParams = {}) =>
+      this.request<User, any>({
+        path: `/users/${id}/`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags api
+     * @name ApiUsersDelete
+     * @request DELETE:/api/users/{id}/
+     * @secure
+     */
+    apiUsersDelete: (id: number, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/users/${id}/`,
+        method: "DELETE",
+        secure: true,
         ...params,
       }),
   };
@@ -759,43 +791,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/logout/`,
         method: "POST",
         secure: true,
-        ...params,
-      }),
-  };
-  updateProfile = {
-    /**
-     * No description
-     *
-     * @tags update-profile
-     * @name UpdateProfileUpdate
-     * @request PUT:/update-profile/
-     * @secure
-     */
-    updateProfileUpdate: (data: UserUpdate, params: RequestParams = {}) =>
-      this.request<UserUpdate, any>({
-        path: `/update-profile/`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags update-profile
-     * @name UpdateProfilePartialUpdate
-     * @request PATCH:/update-profile/
-     * @secure
-     */
-    updateProfilePartialUpdate: (data: UserUpdate, params: RequestParams = {}) =>
-      this.request<UserUpdate, any>({
-        path: `/update-profile/`,
-        method: "PATCH",
-        body: data,
-        secure: true,
-        format: "json",
         ...params,
       }),
   };

@@ -17,11 +17,30 @@ export interface Discoverer {
 
   
   
-export const getDiscovererId = async (
-    id: number | string
-  ): Promise<Discoverer> => {
-    return fetch(`/discoverers/${id}/`).then(
-      (response) => response.json()
-    );
+  export const getDiscovererId = async (id: string): Promise<Discoverer> => {
+    try {
+      const token = localStorage.getItem("token"); // Получаем токен
+  
+      if (!token) {
+        throw new Error("Токен отсутствует, требуется авторизация");
+      }
+  
+      const response = await fetch(`/api/discoverers/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Передаем токен
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+      }
+  
+      return await response.json();
+    } catch (error) {
+      console.error("Ошибка при загрузке первооткрывателя:", error);
+      throw error;
+    }
   };
+  
  

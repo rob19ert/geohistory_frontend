@@ -4,6 +4,7 @@ import discoverersReducer from './slices/dataSlices';
 import userReducer from './slices/userSlice'; 
 import discoveryReducer from './slices/discoveryDraftSlice';
 import discoveriesSliceReducer from './slices/discovererSlice'
+import discovererSliceReducer from './slices/discoverersEditSlice'
 
 // Создание Redux store с фильтром
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     user: userReducer,    
     discovery: discoveryReducer,
     discoveries: discoveriesSliceReducer,
+    discovererEdit: discovererSliceReducer,
   },
 });
 

@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { discoveriesRead } from "../slices/discoveryDraftSlice";
 import { deleteDiscovererFromDiscovery } from "../slices/discoveryDraftSlice";
+import { useNavigate } from "react-router-dom";
 interface Props {
   id?: number;
   name?: string;
@@ -41,6 +42,7 @@ export const DiscovererCard: FC<Props> = ({
   const discoveryId = useSelector((state: RootState) => state.discovery.draft_id);
   const discovererId = useSelector((state: RootState) => state.discovery.discoverers)
   const discoverers = useSelector((state: RootState) => state.discovery.discoverers);
+  const navigate = useNavigate();
 
 
   const handleDeleteCity = async () => {
@@ -61,17 +63,16 @@ export const DiscovererCard: FC<Props> = ({
       return;
     }
   
-    if (!discoveryData?.id) {
-      console.log("❌ Ошибка: ID заявки отсутствует! discoveryData:", discoveryData);
-      return;
+    const resultAction = await dispatch(discoveriesAddDiscovererCreate({ explorer_id: id }));
+  
+    if (discoveriesAddDiscovererCreate.fulfilled.match(resultAction)) {
+      const newDiscoveryId = resultAction.payload.discovery_id;
+  
+      if (newDiscoveryId) {
+        console.log("🚀 Перезапрос заявки с ID:", newDiscoveryId);
+        dispatch(discoveriesRead(newDiscoveryId.toString()));
+      }
     }
-  
-    await dispatch(discoveriesAddDiscovererCreate({ explorer_id: id }));
-  
-    console.log("🟡 Проверяем discoveryData перед обновлением:", discoveryData);
-    console.log("🚀 Перезапрос заявки отправлен с ID:", discoveryData.id);
-  
-    await dispatch(discoveriesRead(discoveryData.id.toString())); // 🔥 Перезапрашиваем заявку
   };
   
   
@@ -79,7 +80,7 @@ export const DiscovererCard: FC<Props> = ({
   if (pathname === "/list_discoverer") {
     return (
     
-      <Card className="card" style={{ padding: "0", margin: "0" }}>
+      <Card className="discoverer-card" style={{ padding: "0", margin: "0" }}>
         <p className="textName">ИССЛЕДОВАТЕЛЬ</p>
         <Card.Img className="cardImage" variant="top" src={image_url || defaultImage} />
         <Card.Body className="card-body">
@@ -94,11 +95,11 @@ export const DiscovererCard: FC<Props> = ({
               <Card.Text>{long_description}</Card.Text>
             </div>
           )}
-          <Button className="cardButton" variant="none" href={`${ROUTES.SERVICES}/${id}`}>
+          <Button className="cardButton" variant="none" onClick={() => navigate(`${ROUTES.SERVICES}/${id}`)}>
             Подробнее
           </Button>
           {isAuthenticated && (
-            <Button className="city-btn" onClick={handleAdd}>
+            <Button className="cardButton" variant="none" onClick={handleAdd}>
                 
               Добавить
             </Button>

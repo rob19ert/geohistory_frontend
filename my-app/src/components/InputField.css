@@ -9,11 +9,7 @@
     border-radius: 4px;
     outline: none;
 }
-.container {
-    display: grid;
-    place-items: center; /* Центрирует и по вертикали, и по горизонтали */
-    height: 100vh; /* Занимает всю высоту экрана для демонстрации */
-}
+
 .btn-favorites img {
     width: 32px;  /* Устанавливаем ширину */
     height: 32px; /* Устанавливаем высоту */
@@ -27,5 +23,30 @@
     padding: 0; /* Убираем внутренние отступы */
     display: flex; /* Чтобы контент внутри кнопки не смещался */
     align-items: center; /* Выравниваем по центру */
+  }
+  
+  button.searchButton {
+    background-color: transparent; /* Прозрачный фон */
+    border: 2px solid black; /* Черная рамка */
+    color: black; /* Цвет текста */
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  button.searchButton:hover {
+    transform: scale(1.05); /* Увеличение при наведении */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Легкая тень */
+    background-color: transparent; /* Остается прозрачной */
+    color: black; /* Цвет не меняется */
+  }
+  
+  button.searchButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none; /* Без эффекта увеличения */
+    box-shadow: none;
   }
   
