@@ -7,13 +7,16 @@ import { AppDispatch, RootState } from "../store";
 import { completedDiscoveries, getDiscoveries, setStatus } from "../slices/discovererSlice";
 import { Button, Table, Spinner, Row, Col, Form } from "react-bootstrap";
 import { BreadCrumbs } from "../components/BreadCrumbs";
-
+import svgQR from "../components/qr.svg";
+import svgTime from "../components/time.svg";
+import './DiscoveryPage.css'
 const DiscoveriesTablePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { discoveries, loading, status } = useSelector(
     (state: RootState) => state.discoveries
   );
   const navigate = useNavigate();
+  const isSuperUser = useSelector((state: RootState) => Boolean(state.user.isSuperUser));
 
   useEffect(() => {
     dispatch(getDiscoveries());
@@ -106,11 +109,43 @@ const DiscoveriesTablePage = () => {
                 <td>{item.creator_login}</td>
                 <td>{item.moderator_login}</td>
                 <td>{item.region}</td>
-                <td>
-                  <Button variant="success" onClick={() => handleCardClick(item.id)}>
+                <td> <Button variant="success" onClick={() => handleCardClick(item.id)}>
                     Открыть
                   </Button>
-                  {item.status === "formed" && (
+                  
+                </td>
+                <td>
+                {" "}
+                  <div className="dinner-icon">
+                    {item.status !== "completed" ? (
+                      <img
+                        className="status-icon"
+                        src={svgTime}
+                        alt="Time Icon"
+                      />
+                    ) : (
+                      <div className="qr-hover-wrapper">
+                        <img
+                          className="status-icon"
+                          src={svgQR}
+                          alt="QR Icon"
+                        />
+                        <div className="qr-hover">
+                          {item.qr && (
+                            <img
+                              className="qr-code"
+                              src={`data:image/png;base64,${item.qr}`}
+                              alt="QR Code"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>{" "}
+
+
+                 
+                  {item.status === "formed" && isSuperUser && (
                     <>
                       <Button
                         variant="success"
