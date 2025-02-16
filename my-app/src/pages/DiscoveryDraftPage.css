@@ -1,3 +1,5 @@
+
+
 /* 📌 Общий контейнер */
 .container-2 {
     max-width: 900px;
@@ -16,11 +18,23 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
   }
+
+  .fav-btn {
+    background-color: #607848;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+  }
   
   /* 📌 Заголовки */
   .cart-content h1 {
     font-size: 26px;
     font-weight: bold;
+    margin-top: 20px;
     color: #212529;
     margin-bottom: 18px;
   }
@@ -60,33 +74,36 @@
     font-style: italic;
   }
   
-  /* ✅ Кнопка "Оформить заявку" */
-  button.mt-3 {
-    display: block;
-    width: 100%;
-    max-width: 320px;
-    margin: 25px auto 0;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: bold;
-    background: linear-gradient(45deg, #007bff, #0056b3);
-    border-radius: 10px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: 0.3s ease-in-out;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button.mt-3:hover {
-    background: linear-gradient(45deg, #0056b3, #003f8a);
-    transform: scale(1.05);
-  }
-  button.save-button {
-    padding: 10px;
-    margin: 10px;
-  }
+/* Контейнер для кнопок */
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Равномерное распределение */
+  gap: 10px; /* Отступ между кнопками */
+  margin-top: 20px;
+}
+
+/* Общий стиль кнопок */
+.button-group .cart-button {
+  flex: 1; /* Равномерное распределение ширины */
+  height: 50px; /* Одинаковая высота */
+  min-width: 150px; /* Минимальная ширина */
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Эффект при наведении */
+.button-group .cart-button:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  border-color: #000000;
+  color:#000000;
+}
+
+ 
   /* 📱 Медиа-запрос для мобильных устройств */
   @media (max-width: 768px) {
     .cart-content {

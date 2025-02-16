@@ -131,6 +131,7 @@ export const DiscovererEditPage: FC=() => {
                               name="name"
                               required
                               className="custom-focus"
+                              style={{ height: "40px" }}
                               value={discoverers?.name || ""}
                               onChange={handleInputChange}
                             />
@@ -144,6 +145,7 @@ export const DiscovererEditPage: FC=() => {
                               type="text"
                               name="nationality"
                               className="custom-focus"
+                              style={{ height: "40px" }}
                               value={discoverers?.nationality || ""}
                               onChange={handleInputChange}
                             />
@@ -159,6 +161,7 @@ export const DiscovererEditPage: FC=() => {
                               type="text"
                               name="years_of_life"
                               className="custom-focus"
+                              style={{ height: "40px" }}
                               value={discoverers?.years_of_life || ""}
                               onChange={handleInputChange}
                             />
@@ -172,6 +175,7 @@ export const DiscovererEditPage: FC=() => {
                               type="text"
                               name="major_discovery"
                               className="custom-focus"
+                              style={{ height: "40px" }}
                               value={discoverers?.major_discovery || ""}
                               onChange={handleInputChange}
                             />
@@ -184,6 +188,7 @@ export const DiscovererEditPage: FC=() => {
                         <Form.Control
                           as="textarea"
                           name="long_description"
+                          style={{ height: "80px" }}
                           rows={2}
                           className="custom-focus"
                           value={discoverers?.long_description || ""}
@@ -196,6 +201,7 @@ export const DiscovererEditPage: FC=() => {
                         <Form.Control
                           as="textarea"
                           name="bio"
+                          style={{ height: "50px" }}
                           rows={2}
                           className="custom-focus"
                           value={discoverers?.bio || ""}
@@ -208,6 +214,7 @@ export const DiscovererEditPage: FC=() => {
                         <Form.Control
                           type="text"
                           name="status"
+                          style={{ height: "40px" }}
                           className="custom-focus"
                           value={discoverers?.status || ""}
                           onChange={handleInputChange}
@@ -219,6 +226,7 @@ export const DiscovererEditPage: FC=() => {
                         <Form.Control
                           type="file"
                           name="image_url"
+                          
                           className="custom-focus"
                           onChange={handleFileUpload}
                         />

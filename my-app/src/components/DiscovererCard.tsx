@@ -110,41 +110,47 @@ export const DiscovererCard: FC<Props> = ({
   }
   if (pathname.includes("/discoveries")) {
     return (
-        <div className="discoverers-container">
+      <div className="discoverers-container">
         <Card className="fav-card">
           <Card.Body className="fav-card-body">
-            {/* 🔥 Имя первооткрывателя */}
-            <Card.Title className="fav-card-title">{name}</Card.Title>
-      
+            {/* 🏷 Заголовок "ИССЛЕДОВАТЕЛЬ" */}
+            <p className="textNames">ИССЛЕДОВАТЕЛЬ</p>
+  
             {/* 🖼 Изображение */}
             <div className="text-center">
               <img className="fav-card-image" src={image_url || defaultImage} alt={name} />
             </div>
   
-             {/* 📜 Поля заявки */}
-            <div className="fav-card-info">
-                <Row className="align-items-center">
-                <Col xs={5} sm={4} md={3}>
-                    <label className="fav-label">Регион:</label>
-                </Col>
-                <Col xs={7} sm={8} md={9}>
-                    <input type="number" className="fav-input" value={draft_count} disabled />
-                </Col>
-                </Row>
+            {/* 🔥 Имя первооткрывателя */}
+            <div className="card-title-style">
+            <Card.Title className="fav-card-title">{name}</Card.Title>
             </div>
   
-            {/* 🔘 Кнопка "Подробнее" */}
-                    <Row className="fav-actions">
-                <Col xs={12}>
-                <Button variant="outline-primary" className="fav-btn" onClick={onClick}>
-                    Подробнее
-                </Button>
+            {/* 🌍 Регион */}
+            <div className="fav-card-info">
+              <Row className="align-items-center">
+                <Col xs={5} sm={4} md={3}>
+                  <label className="fav-label">Регион:</label>
                 </Col>
-            </Row>
-            {(isDraft) && (
-                <Button className="fav-btn-open" onClick={() => handleDeleteCity()}>
-                    Удалить
+                <Col xs={7} sm={8} md={9}>
+                  <input type="number" className="fav-input" value={draft_count} disabled />
+                </Col>
+              </Row>
+            </div>
+  
+            {/* 🔘 Кнопки "Подробнее" и "Удалить" */}
+            <Row className="fav-actions">
+              <Col xs={12}>
+                <Button variant="outline-primary" className="fav-btn" onClick={onClick}>
+                  Подробнее
                 </Button>
+              </Col>
+            </Row>
+  
+            {isDraft && (
+              <Button className="fav-btn-open" onClick={handleDeleteCity}>
+                Удалить
+              </Button>
             )}
           </Card.Body>
         </Card>

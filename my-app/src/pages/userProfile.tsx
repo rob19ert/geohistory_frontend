@@ -63,7 +63,16 @@ const UserProfilePage = () => {
   
 
   return (
+    
     <>
+    <BreadCrumbs
+            crumbs={[
+              {
+                label: ROUTE_LABELS.PROFILE,
+                path: ROUTES.PROFILE,
+              },
+            ]}
+          />
       <Container fluid className="profile-container">
         
           

@@ -100,14 +100,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
       <div className="cart-content">
         {error && <Alert variant="danger" style={{ width: "15vw" }}>{error}</Alert>}
         
-        <Row>
-          <Col md={8} xs={8}>
-            <h1>Корзина</h1>
-          </Col>
-          <Col md={4} xs={4} className="cartImage">
-            <Image src={CartImage} />
-          </Col>
-        </Row>
+       
 
         {isDraft ? (
           <>
@@ -115,6 +108,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
               <h4>ID заявки:</h4>
               <Form.Control
                 type="text"
+                style={{height: "50px"}}
                 name="id"
                 value={discoveryData?.id ?? ''}
                 onChange={handleInputChange}
@@ -126,6 +120,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
             <Form.Group controlId="status">
               <h4>Статус:</h4>
               <Form.Control
+                style={{height: "50px"}}
                 as="textarea"
                 name="status"
                 value={discoveryData?.status ?? ''}
@@ -140,6 +135,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
               <h4>Регион:</h4>
               <Form.Control
                 as="textarea"
+                style={{height: "50px"}}
                 name="region"
                 value={discoveryData?.region ?? ''}
                 onChange={handleInputChange}
@@ -176,19 +172,22 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
           )}
         </div>
 
-        {isDraft && (
-          <Button className="save-button" onClick={handleDelete}>
-            Очистить
+        <div className="button-group">
+          {isDraft && (
+            <Button className="cart-button" onClick={handleDelete}>
+              Очистить
+            </Button>
+          )}
+
+          <Button type="submit" className="cart-button" onClick={handleSaveVacancy}>
+            Сохранить
           </Button>
-        )}
 
-        <Button type="submit" className="save-button" onClick={handleSaveVacancy}>
-              Сохранить
-            </Button>
+          <Button type="submit" className="cart-button" onClick={handleSubmitApplication}>
+            Оформить заявку
+          </Button>
+        </div>
 
-            <Button type="submit" className="submit-button" onClick={handleSubmitApplication}>
-                Оформить заявку
-            </Button>
 
       </div>
     </div>

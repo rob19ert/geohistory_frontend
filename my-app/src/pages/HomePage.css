@@ -1,16 +1,38 @@
-.homepage {
+/* Фон всей страницы с градиентом */
+.homePage {
     display: flex;
-    flex-direction: column;
-    /* padding: 20px 40px; */
-    min-width: 800px;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    /* background-color: #2D3549; */
-}
-.containerLoading {
-    filter: blur(8px);
-}
-@media (max-width: 600px) {
-    .homepage{
-        min-width:auto;
-    }
-}
+    background: linear-gradient(to bottom, #ff914d, #4caf50); /* Оранжево-зеленый градиент */
+  }
+  
+  /* Центрируем карусель */
+  .carousel-container {
+    width: 90%;
+    max-width: 900px; /* Ограничение ширины */
+    text-align: center;
+  }
+  .homePage h1 {
+    
+   
+    width: 100%;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Playfair Display", serif; /* Стильный шрифт */
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0); /* Полупрозрачный фон */
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  
+  /* Изображения карусели */
+  .carousel img {
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень */
+  }
+  
+ 
+  
