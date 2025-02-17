@@ -10,8 +10,11 @@ import { AppDispatch, RootState } from "../store";
 import { useLocation } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { discoveriesRead } from "../slices/discoveryDraftSlice";
-import { deleteDiscovererFromDiscovery } from "../slices/discoveryDraftSlice";
+import { deleteDiscovererFromDiscovery, setAppId,setCount } from "../slices/discoveryDraftSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+
 interface Props {
   id?: number;
   name?: string;
@@ -43,6 +46,8 @@ export const DiscovererCard: FC<Props> = ({
   const discovererId = useSelector((state: RootState) => state.discovery.discoverers)
   const discoverers = useSelector((state: RootState) => state.discovery.discoverers);
   const navigate = useNavigate();
+  const [randomRegionNumber] = useState(() => Math.floor(Math.random() * 10) + 1);
+
 
 
   const handleDeleteCity = async () => {
@@ -54,26 +59,37 @@ export const DiscovererCard: FC<Props> = ({
 
   
 
-  // Обработчик события "Добавить"
-  const handleAdd = async () => {
-    console.log("🟢 handleAdd вызван для ID первооткрывателя:", id);
-  
-    if (!id) {
-      console.log("❌ Ошибка: id первооткрывателя отсутствует!");
-      return;
-    }
-  
+const handleAdd = async () => {
+  if (!isAuthenticated) {
+    console.log("❌ Пользователь не авторизован!");
+    return;
+  }
+
+  if (!id) {
+    console.log("❌ Ошибка: id первооткрывателя отсутствует!");
+    return;
+  }
+
+  try {
+    console.log("🚀 Начало добавления первооткрывателя с ID:", id);
+    
     const resultAction = await dispatch(discoveriesAddDiscovererCreate({ explorer_id: id }));
-  
+    
     if (discoveriesAddDiscovererCreate.fulfilled.match(resultAction)) {
-      const newDiscoveryId = resultAction.payload.discovery_id;
-  
+      const newDiscoveryId = resultAction.payload?.discovery_id;
+      
       if (newDiscoveryId) {
-        console.log("🚀 Перезапрос заявки с ID:", newDiscoveryId);
-        dispatch(discoveriesRead(newDiscoveryId.toString()));
+        await dispatch(discoveriesRead(newDiscoveryId.toString()));
+        await dispatch(getDiscoverersList());
       }
+    } else {
+      console.error("❌ Ошибка при добавлении:", resultAction.error);
     }
-  };
+  } catch (error) {
+    console.error("❌ Ошибка при выполнении:", error);
+  }
+};
+  
   
   
 
@@ -133,8 +149,9 @@ export const DiscovererCard: FC<Props> = ({
                   <label className="fav-label">Регион:</label>
                 </Col>
                 <Col xs={7} sm={8} md={9}>
-                  <input type="number" className="fav-input" value={draft_count} disabled />
+                  <input type="number" className="fav-input" value={randomRegionNumber} disabled />
                 </Col>
+
               </Row>
             </div>
   

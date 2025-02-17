@@ -76,33 +76,36 @@ export const discoveriesRead = createAsyncThunk(
 );
 
 
+
 export const discoveriesAddDiscovererCreate = createAsyncThunk(
   "discoveriesAdd/addDiscovererToDiscovery",
-  async ({ explorer_id }: { explorer_id: number }, { rejectWithValue, dispatch }) => {
+  async ({ explorer_id }: { explorer_id: number }, { rejectWithValue }) => {
     try {
       const csrfToken = Cookies.get("csrftoken");
+      const token = localStorage.getItem("token");
 
-      console.log("📡 Отправляем запрос через API-клиент:", { explorer_id, csrfToken });
+      console.log("📡 Отправляем запрос:", { 
+        explorer_id, 
+        csrfToken,
+        token 
+      });
 
       const response = await api.api.apiDiscoveriesAddDiscovererCreate(
         { explorer_id },
         {
           headers: {
             "X-CSRFToken": csrfToken,
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
           },
           withCredentials: true,
         }
       );
 
-      console.log("✅ Исследователь добавлен, ответ сервера:", response);
-
-      return response.data; // API возвращает void, тут просто response без обработки
-    } catch (error) {
-      console.error("❌ Ошибка при добавлении первооткрывателя:", error);
-
-     
-
-      return rejectWithValue("Ошибка добавления первооткрывателя");
+      return response.data ?? { discovery_id: null as number | null };
+    } catch (error: any) {
+      console.error("❌ Полная информация об ошибке:", error.response);
+      return rejectWithValue(error.response?.data || "Ошибка добавления первооткрывателя");
     }
   }
 );

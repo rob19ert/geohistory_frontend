@@ -8,12 +8,18 @@ interface DiscoveriesState {
   discoveries: Discovery[];
   loading: boolean;
   status: string;
+  startDate: string;
+  endDate: string;
+  creatorFilter: string;
 }
 
 const initialState: DiscoveriesState = {
   discoveries: [],
   loading: true,
   status: "",
+  startDate: "",
+  endDate: "",
+  creatorFilter: "",
 };
 
 export const getDiscoveries = createAsyncThunk(
@@ -73,6 +79,15 @@ const discoveriesSlice = createSlice({
     setStatus(state, action) {
       state.status = action.payload;
     },
+    setStartDate(state, action) {
+      state.startDate = action.payload;
+    },
+    setEndDate(state, action) {
+      state.endDate = action.payload;
+    },
+    setCreator(state, action) {
+      state.creatorFilter = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,5 +118,5 @@ const discoveriesSlice = createSlice({
 });
 
 export default discoveriesSlice.reducer;
-export const { setStatus } =
+export const { setStatus, setCreator, setEndDate, setStartDate } =
   discoveriesSlice.actions;

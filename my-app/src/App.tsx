@@ -10,9 +10,9 @@ import CartPage from "./pages/DiscoveryDraftPage";
 import DiscoveriesTablePage from "./pages/DiscoveryPage.tsx";
 import { RegisterPage } from "./pages/RegisterPage.tsx";
 import UserProfilePage from "./pages/userProfile.tsx"
-import { DiscovererEditPage
-
- } from "./pages/DiscovererEditPage.tsx";
+import { DiscovererEditPage} from "./pages/DiscovererEditPage.tsx";
+import NotFoundPage from "./pages/NotFoundPage.tsx";
+import ForbiddenPage from "./pages/ForbiddenPage.tsx";
 function App() {
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).__TAURI__?.tauri) {
@@ -45,6 +45,8 @@ function App() {
         <Route path={ROUTES.PROFILE} element={<UserProfilePage />} />
         <Route path={`${ROUTES.SERVICES}/:id/edit`} element={<DiscovererEditPage/>} />
         <Route path={`${ROUTES.SERVICES}/add-service`} element={<DiscovererEditPage/>} />
+        <Route path="/forbidden" element={<ForbiddenPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

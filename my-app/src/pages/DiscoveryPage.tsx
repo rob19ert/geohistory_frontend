@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_LABELS, ROUTES } from "../Routes";
 import { AppDispatch, RootState } from "../store";
-import { completedDiscoveries, getDiscoveries, setStatus } from "../slices/discovererSlice";
+import { completedDiscoveries, getDiscoveries, setStatus, setCreator, setEndDate, setStartDate } from "../slices/discovererSlice";
 import { Button, Table, Spinner, Row, Col, Form } from "react-bootstrap";
 import { BreadCrumbs } from "../components/BreadCrumbs";
 import svgQR from "../components/qr.svg";
@@ -12,7 +12,7 @@ import svgTime from "../components/time.svg";
 import './DiscoveryPage.css'
 const DiscoveriesTablePage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { discoveries, loading, status } = useSelector(
+  const { discoveries, loading, status, startDate,endDate,creatorFilter } = useSelector(
     (state: RootState) => state.discoveries
   );
   const navigate = useNavigate();
@@ -40,6 +40,18 @@ const DiscoveriesTablePage = () => {
 
   const handleStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setStatus(e.target.value));
+  };
+
+  const handleStartDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setStartDate(e.target.value));
+  };
+
+  const handleEndDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    dispatch(setEndDate(e.target.value));
+  };
+  const handleCreatorFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setCreator(e.target.value)); // Обновляем фильтр по создателю
   };
 
   const filteredDiscoveries = discoveries.filter((item) =>
@@ -78,6 +90,40 @@ const DiscoveriesTablePage = () => {
                 <option value="rejected">Отклонена</option>
                 <option value="deleted">Удалена</option>
               </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col md={3}>
+            <Form.Group controlId="startDateFilter">
+              <Form.Label>Начальная дата</Form.Label>
+              <Form.Control
+                type="date"
+                className="custom-focus"
+                value={startDate || ""}
+                onChange={handleStartDateChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={3}>
+            <Form.Group controlId="endDateFilter">
+              <Form.Label>Конечная дата</Form.Label>
+              <Form.Control
+                type="date"
+                className="custom-focus"
+                value={endDate}
+                onChange={handleEndDateChange || ""}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={3}>
+            <Form.Group controlId="creatorFilter">
+              <Form.Label>Создатель</Form.Label>
+              <Form.Control
+                type="text"
+                className="custom-focus"
+                value={creatorFilter}
+                onChange={handleCreatorFilterChange} // Событие для обновления фильтра по создателю
+                placeholder="Введите имя создателя"
+              />
             </Form.Group>
           </Col>
         </Row>
