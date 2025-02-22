@@ -20,9 +20,7 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    https:{
-      key: fs.readFileSync(path.resolve(__dirname, 'cert.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt')),
-    },
+    https:false,
+    
   },
 });
